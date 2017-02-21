@@ -1,4 +1,5 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 
 var app = express();
 
@@ -17,10 +18,18 @@ app.set('view engine', '.hbs');
 
 
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+
 app.listen(port, function(){
     console.log("listening on port: " + port);
 });
 
 app.get('/', function(req, res){
     res.render('index', {title: 'hello from render'});
+});
+
+app.post('/action', function(req, res){
+    console.log(req.body.data);
 });
